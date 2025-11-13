@@ -31,7 +31,24 @@ if not exist "dashboard.py" (
 REM Install required packages
 echo.
 echo 📦 Installing required packages...
-pip install matplotlib pandas tkinter pillow
+echo    Note: tkinter comes with Python on Windows, no need to install separately
+
+pip install matplotlib pandas pillow
+
+REM Check if installation was successful
+python -c "import matplotlib, pandas; print('✅ All packages installed successfully')" >nul 2>&1
+if errorlevel 1 (
+    echo ❌ Package installation failed! Trying with --user flag...
+    pip install --user matplotlib pandas pillow
+    python -c "import matplotlib, pandas; print('✅ Packages installed with --user flag')" >nul 2>&1
+    if errorlevel 1 (
+        echo ❌ Installation still failed! Please check your Python/pip setup
+        echo    Try running: python -m pip install --upgrade pip
+        echo    Then: pip install matplotlib pandas pillow
+        pause
+        exit /b 1
+    )
+)
 
 REM Check if CSV files exist
 echo.
@@ -45,6 +62,17 @@ if %csv_count% LSS 7 (
 )
 
 echo ✅ Found %csv_count% CSV data files
+
+REM Verify all required packages are available
+echo.
+echo 🔍 Verifying all required packages are installed...
+python -c "import tkinter, matplotlib.pyplot, pandas; print('✅ All packages verified and ready')"
+if errorlevel 1 (
+    echo ❌ Some required packages are missing or not working
+    echo    Please check the error messages above and install missing packages
+    pause
+    exit /b 1
+)
 
 REM Run the dashboard
 echo.
