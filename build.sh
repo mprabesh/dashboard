@@ -37,22 +37,22 @@ fi
 # Build the application
 echo "🔧 Building standalone executable..."
 pyinstaller --onefile \
-    --name="Dashboard" \
-    --add-data="metrics.json:." \
+    --name="ArcticDataSolutions-Dashboard" \
+    --add-data="*.csv:." \
     --windowed \
     dashboard.py
 
 # Check if build was successful
-if [ -f "dist/Dashboard" ]; then
+if [ -f "dist/ArcticDataSolutions-Dashboard" ]; then
     echo "✅ Build successful!"
-    echo "📦 Executable created: dist/Dashboard"
-    echo "💡 You can now run: ./dist/Dashboard"
+    echo "📦 Executable created: dist/ArcticDataSolutions-Dashboard"
+    echo "💡 You can now run: ./dist/ArcticDataSolutions-Dashboard"
     
     # Make the executable... executable
-    chmod +x dist/Dashboard
+    chmod +x dist/ArcticDataSolutions-Dashboard
     
     # Show file size
-    echo "📊 File size: $(du -h dist/Dashboard | cut -f1)"
+    echo "📊 File size: $(du -h dist/ArcticDataSolutions-Dashboard | cut -f1)"
 else
     echo "❌ Build failed!"
     exit 1
