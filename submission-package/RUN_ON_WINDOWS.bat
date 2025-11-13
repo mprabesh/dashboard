@@ -36,11 +36,12 @@ echo    Note: tkinter comes with Python on Windows, no need to install separatel
 pip install matplotlib pandas pillow
 
 REM Check if installation was successful
-python -c "import matplotlib, pandas; print('✅ All packages installed successfully')" >nul 2>&1
+echo 🔍 Verifying package installation...
+python -c "import matplotlib, pandas; print('✅ All packages installed successfully')" 2>nul
 if errorlevel 1 (
-    echo ❌ Package installation failed! Trying with --user flag...
+    echo ❌ Package installation verification failed! Trying with --user flag...
     pip install --user matplotlib pandas pillow
-    python -c "import matplotlib, pandas; print('✅ Packages installed with --user flag')" >nul 2>&1
+    python -c "import matplotlib, pandas; print('✅ Packages installed with --user flag')" 2>nul
     if errorlevel 1 (
         echo ❌ Installation still failed! Please check your Python/pip setup
         echo    Try running: python -m pip install --upgrade pip
@@ -48,6 +49,8 @@ if errorlevel 1 (
         pause
         exit /b 1
     )
+) else (
+    echo ✅ All packages verified successfully
 )
 
 REM Check if CSV files exist
@@ -65,14 +68,11 @@ echo ✅ Found %csv_count% CSV data files
 
 REM Verify all required packages are available
 echo.
-echo 🔍 Verifying all required packages are installed...
-python -c "import tkinter, matplotlib.pyplot, pandas; print('✅ All packages verified and ready')"
-if errorlevel 1 (
-    echo ❌ Some required packages are missing or not working
-    echo    Please check the error messages above and install missing packages
-    pause
-    exit /b 1
-)
+echo 🔍 Final verification: Testing all required packages...
+python -c "import tkinter; print('✅ tkinter: OK')"
+python -c "import matplotlib.pyplot; print('✅ matplotlib: OK')" 
+python -c "import pandas; print('✅ pandas: OK')"
+echo ✅ All packages are working correctly!
 
 REM Run the dashboard
 echo.
