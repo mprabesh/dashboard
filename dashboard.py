@@ -20,7 +20,7 @@ import numpy as np
 class Dashboard:
     def __init__(self, root):
         self.root = root
-        self.root.title("Python Dashboard - Multi-CSV Data Visualization")
+        self.root.title("Arctic Data Solution Data Visualization")
         self.root.geometry("1400x900")
         self.root.configure(bg="#f0f0f0")
         
